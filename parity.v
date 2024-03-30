@@ -2,7 +2,7 @@ module parity(
     input a, b, c,
     output F
 );
-    assign F = (a~&b) & ~c;
+    assign F = ~(a&b) & ~c;
 endmodule
 `timescale 1ns/ 1ps
 module parity_tb;
