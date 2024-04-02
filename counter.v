@@ -1,40 +1,40 @@
-module counter(
-    input a, b, c,
-    output y,z
-);
-    assign y = (~a&b&c) | (a&~b&c) | (a&b);
-    assign z = (~a&~b&c) | (~a&b&~c) | (a&~b&~c)|(a&b&c);
+module counter(clk,rst_n,cnt);
+input clk,rst_n;
+output [3:0] cnt;
+
+reg [3:0] cnt;
+
+always @(posedge clk) begin
+if(~rst_n)
+    cnt=4'b0000;
+else
+    cnt=cnt+1;
+end
 endmodule
-`timescale 1ns/ 1ps
+
+`timescale 1ns/1ps
 module counter_tb;
-reg a;
-reg b;
-reg c;
-wire y;
-wire z;
-counter instance_counter(
-    .a(a),.b(b),.c(c),.y(y),.z(z)
-);
+reg clk,rst_n;
+wire [3:0] cnt;
+
+counter counter_inst(.clk(clk),.rst_n(rst_n),.cnt(cnt));
+
 initial begin
-    a=0; b=0; c=0;
-    #10;
-    a=0; b=0; c=1;
-    #10;
-    a=0; b=1; c=0;
-    #10;
-    a=0; b=1; c=1;
-    #10;
-    a=1; b=0; c=0;
-    #10;
-    a=1; b=0; c=1;
-    #10;
-    a=1; b=1; c=0;
-    #10;
-    a=1; b=1; c=1;
-    #10;
+    clk=0; rst_n=1;
+    #10
+    rst_n=0;
+    #10
+    rst_n=1;    //초기화
+    #200
+    rst_n=0;
+    #10
+    rst_n=1;    //reset 동작확인
+    #10
     $finish;
 end
+always #5 clk = ~clk;
+
 initial begin
-    $monitor("시간=%t, a=%b, b=%b, c=%b, y=%b, z=%b", $time, a, b, c, y, z);
+    $monitor("시간 = %t, output cnt = %d", $time, cnt);
 end
 endmodule
