@@ -4,21 +4,21 @@ module MUX_tb;
     wire out;
     MUX MUX_inst(.A(A),.B(B),.select(select),.out(out));
     initial begin
-        A=0; B=0; ;select=0;
+        A=0; B=0; select=0;
         #10 
-        A=0; B=1; ;select=0;
+        A=0; B=1; select=0;
         #10 
-        A=1; B=0; ;select=0;
+        A=1; B=0; select=0;
         #10 
-        A=1; B=1; ;select=0;
+        A=1; B=1; select=0;
         #10 
-        A=0; B=0; ;select=1;
+        A=0; B=0; select=1;
         #10 
-        A=0; B=1; ;select=1;
+        A=0; B=1; select=1;
         #10 
-        A=1; B=0; ;select=1;
+        A=1; B=0; select=1;
         #10 
-        A=1; B=1; ;select=1;
+        A=1; B=1; select=1;
         #10
         $finish;
     end
