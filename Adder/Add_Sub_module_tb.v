@@ -25,4 +25,7 @@ module twos_adder_tb;
     #20 a = 11; b = 12;
     #20 $finish;
   end
+  initial begin
+    $monitor("시간=%g, a=%b, b=%b, c_in=%b, sum=%b, c_out=%b", $time, a, b, c_in, sum, c_out);
+  end
 endmodule
